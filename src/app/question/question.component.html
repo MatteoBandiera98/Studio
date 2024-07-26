@@ -1,0 +1,52 @@
+<div class="container">
+  <h1 class="kanit-bold">Studio del Benjo</h1>
+
+  <!-- Add New Category -->
+  <div class="form-group">
+    <label for="newCategory" class="kanit-medium">Aggiungi Materia</label>
+    <input type="text" id="newCategory" [(ngModel)]="newCategory" placeholder="New category" class="form-control" />
+    <button (click)="addCategory()" class="btn btn-primary">Aggiungi</button>
+  </div>
+
+  <!-- Category Selector -->
+  <div class="form-group">
+    <label for="category" class="kanit-medium">Seleziona la materia</label>
+    <select id="category" [(ngModel)]="selectedCategory" class="form-control">
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+    <button *ngFor="let category of categories" (click)="confirmRemoveCategory(category)" class="btn btn-danger">Rimuovi {{category}}</button>
+  </div>
+
+  <!-- Add New Question -->
+  <div class="form-group">
+    <label for="question" class="kanit-medium">Question</label>
+    <textarea id="question" [(ngModel)]="question" placeholder="Enter your question" class="form-control"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="answer" class="kanit-medium">Answer</label>
+    <textarea id="answer" [(ngModel)]="answer" placeholder="Enter the answer" class="form-control"></textarea>
+  </div>
+
+  <button (click)="addQuestion()" class="btn btn-success">Add Question</button>
+
+  <!-- Search Questions -->
+  <div class="form-group">
+    <label for="search" class="kanit-medium">Search Questions</label>
+    <input type="text" id="search" (input)="searchQuestions($event)" placeholder="Search by keyword" class="form-control" />
+  </div>
+
+  <!-- Display Questions -->
+  <div *ngIf="questions.length > 0">
+    <h2 class="kanit-medium">Questions</h2>
+    <ul>
+      <li *ngFor="let question of questions" class="question-item">
+        <strong>{{ question.category }}:</strong> <span class="question-text">{{ question.text }}</span> <br />
+        <em class="answer-text">{{ question.answer }}</em>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="questions.length === 0">
+    <p>No questions found.</p>
+  </div>
+</div>
